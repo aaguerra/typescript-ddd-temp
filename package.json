@@ -5,10 +5,14 @@
   "main": "start.ts",
   "scripts": {
     "dev": "nodemon",
+    "start:w": "npm run build:clean:w && npm run start",
+    "start:l": "npm run build:clean:w && npm run start",
     "start": "npm run build && cross-env NODE_ENV=production node dist/src/apps/start.js",
     "start:dev": "ts-node src/apps/start.ts",
     "build": "tsc",
-    "serve": "node dist/src/apps/start.js"
+    "serve": "node dist/src/apps/start.js",
+    "build:clean:l": "rm -r dist; exit 0",
+    "build:clean:w": "if exist dist rmdir /s /q dist"
   },
   "author": "",
   "license": "ISC",
