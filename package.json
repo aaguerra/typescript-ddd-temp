@@ -52,6 +52,8 @@
       "prettier --write",
       "tslint --fix",
       "git add"
-    ]
+    ],
+    "**/*": "npm run format",
+    "**/*.{js,ts}": "npm run lint:fix"
   }
 }
