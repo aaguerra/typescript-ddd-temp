@@ -15,7 +15,10 @@
     "build:clean:w": "if exist dist rmdir /s /q dist",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --fix --ext .ts",
-    "test:features": " cross-env NODE_ENV=test ./node_modules/.bin/cucumber-js -p default"
+    "test": "npm run test:unit && npm run test:features",
+    "test:unit": "NODE_ENV=test jest",
+    "test:features": " npm run test:cucumber:features",
+    "test:cucumber:features": " cross-env NODE_ENV=test ./node_modules/.bin/cucumber-js -p default"
   },
   "author": "",
   "license": "ISC",
