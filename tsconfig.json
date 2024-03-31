@@ -6,6 +6,13 @@
       "esModuleInterop": true,
       "skipLibCheck": true,
       "forceConsistentCasingInFileNames": true,
+      "noImplicitAny": true,
+      "moduleResolution": "node",
+      "sourceMap": false,
+      "rootDir": ".",
+      "noEmit": false,
+      "resolveJsonModule": true,
+      "noUnusedLocals": true,
       "outDir": "./dist"
     },
     "include": ["src/**/*.ts","src//*.ts", "src//*.json", ".env"],    

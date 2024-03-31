@@ -5,10 +5,10 @@
   "main": "start.ts",
   "scripts": {
     "dev": "nodemon",
-    "start": "npm run build && cross-env NODE_ENV=production node dist/start.js",
-    "start:dev": "ts-node src/start.ts",
+    "start": "npm run build && cross-env NODE_ENV=production node dist/src/apps/start.js",
+    "start:dev": "ts-node src/apps/start.ts",
     "build": "tsc",
-    "serve": "node dist/start.js"
+    "serve": "node dist/src/apps/start.js"
   },
   "author": "",
   "license": "ISC",
