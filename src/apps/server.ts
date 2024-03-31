@@ -48,6 +48,10 @@ export class Server {
     return this.httpServer;
   }
 
+  getExpress() {
+    return this.express;
+  }
+
   async stop(): Promise<void> {
     return new Promise((resolve, reject) => {
       if (this.httpServer) {

@@ -14,6 +14,10 @@ export class BackendApp {
     return this.server?.getHTTPServer();
   }
 
+  get express() {
+    return this.server?.getExpress();
+  }
+
   async stop() {
     return this.server?.stop();
   }
