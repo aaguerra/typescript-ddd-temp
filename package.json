@@ -13,8 +13,8 @@
     "serve": "node dist/src/apps/start.js",
     "build:clean:l": "rm -r dist; exit 0",
     "build:clean:w": "if exist dist rmdir /s /q dist",
-    "lint": "eslint",
-    "lint:fix": "eslint --fix"
+    "lint": "eslint . --ext .ts",
+    "lint:fix": "eslint . --fix --ext .ts"
   },
   "author": "",
   "license": "ISC",
@@ -44,7 +44,8 @@
     "express-validator": "^7.0.1",
     "fast-glob": "^3.3.2",
     "helmet": "^7.1.0",
-    "http-status": "^1.7.4"
+    "http-status": "^1.7.4",
+    "node-dependency-injection": "^3.1.2"
   },
   "husky": {
     "hooks": {
