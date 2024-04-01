@@ -9,8 +9,8 @@ const container = new ContainerBuilder();
 
 container.register("service.example", StatusGetController);
 
-container.register('Bills.infrastructure.BillRepository', FileCourseRepository);
-container.register('Bills.application.BillCreate', BillCreate).addArgument(new Reference('Bills.infrastructure.BillRepository'));
+container.register('Bills.domain.BillRepository', FileCourseRepository);
+container.register('Bills.application.BillCreate', BillCreate).addArgument(new Reference('Bills.domain.BillRepository'));
 container.register('Apps.controllers.BillPutController', BillPutController).addArgument(new Reference('Bills.application.BillCreate'));
 
 export default container;

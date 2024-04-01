@@ -1,13 +1,12 @@
 import Bill from '../../../../src/Contexts/Bills/domain/Bill'
-import BillRepository from '../../../../src/Contexts/Bills/domain/BillRepository'
+//import BillRepository from '../../../../src/Contexts/Bills/domain/BillRepository'
 import BillCreate from '../../../../src/Contexts/Bills/application/BillCreate'
+import { BillRepositoryMock } from '../__mocks__/BillRepositoryMock';
 
 describe('Create Bill', () => {
   it('should create a valid Bill', async () => {
     //const save = jest.fn();
-    const repository: BillRepository = {
-      save: jest.fn(),
-    };
+    const repository = new BillRepositoryMock();
 
     const createBill = new BillCreate(repository);
 
@@ -19,6 +18,6 @@ describe('Create Bill', () => {
 
     await createBill.run(id, name, duration);
 
-    expect(repository.save).toHaveBeenCalledWith(expectedCourse);
+    repository.assertSaveHaveBeenCalledWith(expectedCourse);
   });
 });
