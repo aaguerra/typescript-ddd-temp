@@ -5,6 +5,7 @@ import helmet from 'helmet';
 import * as http from 'http';
 import httpStatus from 'http-status';
 import { registerRoutes } from './routes';
+import errorHandler from 'errorhandler';
 
 export class Server {
   private express: express.Express;
@@ -20,14 +21,15 @@ export class Server {
     this.express.use(helmet.noSniff());
     this.express.use(helmet.hidePoweredBy());
     this.express.use(helmet.frameguard({ action: 'deny' }));
+    //this.express.use(errorHandler());
     const router = Router();
-    //router.use(errorHandler());
+    router.use(errorHandler());
     this.express.use(router);
 
     registerRoutes(router);
 
     router.use((err: Error, req: Request, res: Response, next: Function) => {
-      console.log(err);
+      console.log(err.message);
       res.status(httpStatus.INTERNAL_SERVER_ERROR).send(err.message);
     });
   }

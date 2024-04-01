@@ -1,10 +1,16 @@
-import {ContainerBuilder} from 'node-dependency-injection'
-import StatusGetController from '../controllers/StatusGetController'
-import { BillPutController } from '../controllers/BillPutController'
+import { ContainerBuilder, Reference } from "node-dependency-injection";
+import StatusGetController from "../controllers/StatusGetController";
+import { BillPutController } from "../controllers/BillPutController";
+import BillCreate from "../../Contexts/Bills/application/BillCreate";
+import FileCourseRepository from "../../Contexts/Bills/infrastructure/FileBillRepository";
 
-const container = new ContainerBuilder()
+const container = new ContainerBuilder();
 
-container.register('service.example', StatusGetController)
-container.register('Apps.controllers.BillPutController', BillPutController)
+
+container.register("service.example", StatusGetController);
+
+container.register('Bills.infrastructure.BillRepository', FileCourseRepository);
+container.register('Bills.application.BillCreate', BillCreate).addArgument(new Reference('Bills.infrastructure.BillRepository'));
+container.register('Apps.controllers.BillPutController', BillPutController).addArgument(new Reference('Bills.application.BillCreate'));
 
 export default container;
