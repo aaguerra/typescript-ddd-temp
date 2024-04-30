@@ -20,4 +20,13 @@ export default class Bill {
   get duration(): string {
     return this._duration;
   }
+
+  toPrimitives(): any {
+    return {
+      id: this._id,
+      name: this._name,
+      duration: this._duration
+    };
+  }
+
 }

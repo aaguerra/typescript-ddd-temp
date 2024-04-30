@@ -6,14 +6,20 @@ import * as http from 'http';
 import httpStatus from 'http-status';
 import { registerRoutes } from './routes';
 import errorHandler from 'errorhandler';
+import cors from 'cors';
+import Logger from '../Contexts/Bills/domain/Logger';
+import container from './dependency-injection';
+
 
 export class Server {
   private express: express.Express;
   private port: string;
   private httpServer?: http.Server;
+  private logger: Logger;
 
   constructor(port: string) {
     this.port = port;
+    this.logger = container.get('Shared.Logger');
     this.express = express();
     this.express.use(bodyParser.json());
     this.express.use(bodyParser.urlencoded({ extended: true }));
@@ -23,12 +29,13 @@ export class Server {
     this.express.use(helmet.frameguard({ action: 'deny' }));
     //this.express.use(errorHandler());
     const router = Router();
+    router.use(cors());
     router.use(errorHandler());
     this.express.use(router);
-
     registerRoutes(router);
 
     router.use((err: Error, req: Request, res: Response, next: Function) => {
+      this.logger.error(err);
       console.log(err.message);
       res.status(httpStatus.INTERNAL_SERVER_ERROR).send(err.message);
     });
@@ -37,10 +44,10 @@ export class Server {
   async listen(): Promise<void> {
     return new Promise(resolve => {
       this.httpServer = this.express.listen(this.port, () => {
-        console.log(
-          `  Mock Backend App is running at http://localhost:${this.port} in ${this.express.get('env')} mode`
+        this.logger.info(
+          `  Backoffice Backend App is running at http://localhost:${this.port} in ${this.express.get('env')} mode`
         );
-        console.log('  Press CTRL-C to stop\n');
+        this.logger.info('  Press CTRL-C to stop\n');
         resolve();
       });
     });
