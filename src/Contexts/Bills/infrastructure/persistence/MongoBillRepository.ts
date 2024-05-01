@@ -1,35 +1,26 @@
-import { Collection, MongoClient } from "mongodb";
 import BillRepository from "../../domain/BillRepository";
-import Bill from "../../domain/Bill";
+import { Bill } from "../../domain/Bill";
+import { BillId } from "../../domain/BillId";
+import { Nullable } from "../../domain/generic/Nullable";
+import { MongoRepository } from "./mongo/MongoRepository";
+import BillDocument from "./mongo/models/BillDocument";
 
-interface BillDocument {
-  _id: string;
-  name: string;
-  duration: string;
-}
 
-export class MongoBillRepository implements BillRepository {
-  constructor(private readonly _client: Promise<MongoClient>) { }
+export class MongoBillRepository extends MongoRepository<Bill> implements BillRepository {
+
 
   save(course: Bill): void | Promise<void> {
-    return this.persist(course.id, course)
+    return this.persist(course.id.value, course)
   }
 
-  private async persist(id: string, aggregateRoot: Bill): Promise<void> {
-
+  public async search(id: BillId): Promise<Nullable<Bill>> {
     const collection = await this.collection();
+    const document = await collection.findOne<BillDocument>({ _id: id.value });
 
-    const document = { ...aggregateRoot.toPrimitives(), _id: id, id: undefined };
-
-    await collection.updateOne({ _id: id }, { $set: document }, { upsert: true });
-
+    return document ? Bill.fromPrimitives({ name: document.name, duration: document.duration, id: id.value }) : null;
   }
 
-  private async collection(): Promise<Collection> {
-    return (await this._client).db().collection(this.collectionName());
-  }
-
-  private collectionName(): string {
+  protected collectionName(): string {
     return 'courses';
   }
 

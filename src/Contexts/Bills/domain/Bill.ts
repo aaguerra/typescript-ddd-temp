@@ -1,31 +1,37 @@
-export default class Bill {
-  private _id: string;
-  private _name: string;
-  private _duration: string;
+import { BillDuration } from "./BillDuration";
+import { BillId } from "./BillId";
+import { BillName } from "./BillName";
+import { AggregateRoot } from "./generic/AggregateRoot";
 
-  constructor(id: string, name: string, duration: string) {
-    this._id = id;
-    this._name = name;
-    this._duration = duration;
+export class Bill extends AggregateRoot {
+  readonly id: BillId;
+  readonly name: BillName;
+  readonly duration: BillDuration;
+
+  constructor({ id, name, duration }: { id: BillId; name: BillName; duration: BillDuration }) {
+    super();
+    this.id = id;
+    this.name = name;
+    this.duration = duration;
   }
 
-  get id(): string {
-    return this._id;
-  }
-
-  get name(): string {
-    return this._name;
-  }
-
-  get duration(): string {
-    return this._duration;
+  static fromPrimitives(plainData: {
+    id: string;
+    name: string;
+    duration: string;
+  }): Bill {
+    return new Bill({
+      id: new BillId(plainData.id),
+      name: new BillName(plainData.name),
+      duration: new BillDuration(plainData.duration)
+    });
   }
 
   toPrimitives(): any {
     return {
-      id: this._id,
-      name: this._name,
-      duration: this._duration
+      id: this.id.value,
+      name: this.name.value,
+      duration: this.duration.value
     };
   }
 

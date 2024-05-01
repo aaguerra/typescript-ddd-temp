@@ -1,23 +1,39 @@
-import Bill from '../../../../src/Contexts/Bills/domain/Bill'
+//import { Bill} from '../../../../src/Contexts/Bills/domain/Bill'
 //import BillRepository from '../../../../src/Contexts/Bills/domain/BillRepository'
 import BillCreate from '../../../../src/Contexts/Bills/application/BillCreate'
 import { BillRepositoryMock } from '../__mocks__/BillRepositoryMock';
+import { CreateBillRequestMother } from './CreateBillRequestMother';
+import { BillMother } from '../domain/BillMother';
+import { BillNameLengthExceeded } from '../../../../src/Contexts/Bills/domain/BillNameLengthExceeded';
 
-describe('Create Bill', () => {
-  it('should create a valid Bill', async () => {
-    //const save = jest.fn();
-    const repository = new BillRepositoryMock();
+let repository: BillRepositoryMock;
+let creator: BillCreate;
 
-    const createBill = new BillCreate(repository);
+beforeEach(() => {
+  repository = new BillRepositoryMock();
+  creator = new BillCreate(repository);
+});
 
-    const id = 'some-id';
-    const name = 'some-name';
-    const duration = 'some-duration';
+describe('CourseCreator', () => {
+  it('should create a valid course', async () => {
+    const request = CreateBillRequestMother.random();
 
-    const expectedCourse = new Bill(id, name, duration);
+    const course = BillMother.fromRequest(request);
 
-    await createBill.run(id, name, duration);
+    await creator.run(request);
 
-    repository.assertSaveHaveBeenCalledWith(expectedCourse);
+    repository.assertSaveHaveBeenCalledWith(course);
+  });
+
+  it('should throw error if course name length is exceeded', async () => {
+    expect(() => {
+      const request = CreateBillRequestMother.invalidRequest();
+
+      const course = BillMother.fromRequest(request);
+
+      creator.run(request);
+
+      repository.assertSaveHaveBeenCalledWith(course);
+    }).toThrow(BillNameLengthExceeded);
   });
 });

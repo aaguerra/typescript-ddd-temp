@@ -21,10 +21,11 @@ export class BillPutController implements Controller {
     try {
       const { id, name, duration } = req.body;
       this.logger.info(`${id} = ${name}`)
-      await this.billCreate.run( id, name, duration)
+      await this.billCreate.run( {id, name, duration} )
       res.status(httpStatus.CREATED).send();
     } catch (error) {
       this.logger.error(`${error}`)
+      console.log(error);
       res.status(httpStatus.INTERNAL_SERVER_ERROR).send();
     }
   }

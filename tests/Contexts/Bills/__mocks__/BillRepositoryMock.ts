@@ -1,4 +1,4 @@
-import  Bill  from '../.../../../../../src/Contexts/Bills/domain/Bill';
+import { Bill }  from '../.../../../../../src/Contexts/Bills/domain/Bill';
 import  BillRepository from '../.../../../../../src/Contexts/Bills/domain/BillRepository';
 
 export class BillRepositoryMock implements BillRepository {

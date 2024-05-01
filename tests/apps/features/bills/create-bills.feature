@@ -4,10 +4,10 @@ Feature: Create a new bill
   I want to create a new course
 
   Scenario: A valid non existing course
-    Given I send a PUT request to "/bills/ef8ac118-8d7f-49cc-abec-78e0d05af80a" with body:
+    Given I send a PUT request to "/bills/82f11ae9-4d90-4a4b-9ca8-7b80f22bf738" with body:
     """
     {
-      "id": "ef8ac118-8d7f-49cc-abec-78e0d05af80a",
+      "id": "82f11ae9-4d90-4a4b-9ca8-7b80f22bf738",
       "name": "The best ",
       "duration": "5 hours"
     }
@@ -16,10 +16,10 @@ Feature: Create a new bill
     And the response should be empty
 
   Scenario: An invalid non existing course
-    Given I send a PUT request to "/bills/ef8ac118-8d7f-49cc-abec-78e0d05af80a" with body:
+    Given I send a PUT request to "/bills/82f11ae9-4d90-4a4b-9ca8-7b80f22bf738" with body:
     """
     {
-      "id": "ef8ac118-8d7f-49cc-abec-78e0d05af80a",
+      "id": "82f11ae9-4d90-4a4b-9ca8-7b80f22bf738",
       "name": 5,
       "duration": "5 hours"
     }

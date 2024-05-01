@@ -17,6 +17,6 @@ const backofficeConfig = convict({
   }
 });
 
-backofficeConfig.loadFile([__dirname + '/default.json', __dirname + '/' + backofficeConfig.get('env') + '.json']);
+//backofficeConfig.loadFile([__dirname + '/default.json', __dirname + '/' + backofficeConfig.get('env') + '.json']);
 
 export default backofficeConfig;
