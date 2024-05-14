@@ -7,6 +7,8 @@ import WinstonLogger from "../../Contexts/Bills/infrastructure/WinstonLogger";
 import { MongoConfigFactory } from "../../Contexts/Bills/infrastructure/persistence/mongo/MongoConfigFactory";
 import { MongoClientFactory } from "../../Contexts/Bills/infrastructure/persistence/mongo/MongoClientFactory";
 import { MongoBillRepository } from "../../Contexts/Bills/infrastructure/persistence/MongoBillRepository";
+import { MongoEnvironmentArranger } from "../../../tests/Contexts/Bills/infastructure/mongo/MongoEnvironmentArranger"
+
 
 const container = new ContainerBuilder();
 
@@ -27,5 +29,8 @@ container.register('Bills.domain.BillRepository', MongoBillRepository).addArgume
 container.register('Bills.application.BillCreate', BillCreate).addArgument(new Reference('Bills.domain.BillRepository'));
 container.register('Apps.controllers.BillPutController', BillPutController)
 .addArgument(new Reference('Bills.application.BillCreate')).addArgument(new Reference('Shared.Logger'));
+
+container.register('Mooc.EnvironmentArranger', MongoEnvironmentArranger)
+.addArgument(new Reference('App.ConnectionManager'))
 
 export default container;

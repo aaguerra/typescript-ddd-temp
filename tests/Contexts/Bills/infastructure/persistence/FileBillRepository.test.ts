@@ -1,6 +1,6 @@
-import { Bill } from '../../../../src/Contexts/Bills/domain/Bill';
-import FileBillRepository from '../../../../src/Contexts/Bills/infrastructure/FileBillRepository';
-import { BillMother } from '../domain/BillMother';
+import { Bill } from '../../../../../src/Contexts/Bills/domain/Bill';
+import FileBillRepository from '../../../../../src/Contexts/Bills/infrastructure/FileBillRepository';
+import { BillMother } from '../../domain/BillMother';
 
 describe('Save Course', () => {
   it('should have a course', async () => {
