@@ -3,7 +3,7 @@ import { Bill } from '../domain/Bill';
 import * as fs from 'fs';
 import BSON from 'bson';
 
-export default class FileCourseRepository implements BillRepository {
+export default class FileBillRepository implements BillRepository {
   private FILE_PATH = `${__dirname}/bills`;
 
   async save(course: Bill): Promise<void> {
