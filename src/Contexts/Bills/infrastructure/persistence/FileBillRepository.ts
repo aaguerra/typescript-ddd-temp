@@ -1,5 +1,5 @@
-import BillRepository from '../domain/BillRepository';
-import { Bill } from '../domain/Bill';
+import BillRepository from '../../domain/BillRepository';
+import { Bill } from '../../domain/Bill';
 import * as fs from 'fs';
 import BSON from 'bson';
 

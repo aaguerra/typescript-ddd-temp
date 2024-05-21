@@ -1,5 +1,5 @@
 import { Bill } from '../../../../../src/Contexts/Bills/domain/Bill';
-import FileBillRepository from '../../../../../src/Contexts/Bills/infrastructure/FileBillRepository';
+import FileBillRepository from '../../../../../src/Contexts/Bills/infrastructure/persistence/FileBillRepository';
 import { BillMother } from '../../domain/BillMother';
 
 describe('Save Course', () => {
