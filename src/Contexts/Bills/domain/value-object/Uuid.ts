@@ -1,14 +1,13 @@
 import { v4 as uuid } from 'uuid';
+import { ValueObject } from './ValueObject';
 //import validate = require("uuid-validate");
 //import { InvalidArgumentError } from './InvalidArgumentError';
 
-export class Uuid {
-  readonly value: string;
+export class Uuid extends ValueObject<string> {
 
   constructor(value: string) {
+    super(value);
     this.ensureIsValidUuid(value);
-
-    this.value = value;
   }
 
   static random(): Uuid {
@@ -21,7 +20,4 @@ export class Uuid {
     }*/
   }
 
-  toString(): string {
-    return this.value;
-  }
 }
